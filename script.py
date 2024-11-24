@@ -36,7 +36,7 @@ preprocessor = ColumnTransformer(
         ('age', StandardScaler(), ['idade'])  # Escalonamento da variável idade
     ])
 
-# Agora, vamos preparar o modelo KNN dentro de um Pipeline
+# Preparando o modelo KNN dentro de um Pipeline
 knn = Pipeline(steps=[
     ('preprocessor', preprocessor),  # Pré-processamento
     ('classifier', KNeighborsClassifier(n_neighbors=11))  # Classificador KNN
@@ -58,12 +58,11 @@ def prever_rede_social(categoria_empresa, genero=None, localidade=None, faixa_et
     # Para cada variável, verificamos e montamos a entrada com base nos parâmetros fornecidos
     entrada_usuario = {
         'categoria': categoria_empresa,
-        'genero': genero if genero else 'indefinido',  # Caso não tenha gênero, colocamos 'indefinido'
-        'nacional': localidade if localidade else 'indefinido',  # Caso não tenha localidade, colocamos 'indefinido'
+        'genero': genero if genero else 'não especificado',  # Caso não tenha gênero, colocamos 'não especificado'
+        'nacional': localidade if localidade else 'não especificado',  # Caso não tenha localidade, colocamos 'não especificado'
         'idade': faixa_etaria_min if faixa_etaria_min else 0,  # Caso não tenha idade mínima, assumimos 0
     }
 
-    # Para os interesses, fazemos uma abordagem similar:
     # Criamos um dicionário com interesses definidos como 1 e os outros como 0
     for col in interest_columns:
         if col in interesses:
@@ -78,20 +77,20 @@ def prever_rede_social(categoria_empresa, genero=None, localidade=None, faixa_et
     probabilidade = knn.predict_proba(entrada_usuario_df)
     
 
-    # Obtendo as 3 redes sociais com maior compatibilidade
+    # Obtendo as 3 redes sociais com maior probabilidade de serem eficientes para a empresa
     indices_top_3 = probabilidade[0].argsort()[-3:][::-1]
     redes_sociais_top_3 = knn.classes_[indices_top_3]
     probabilidades_top_3 = probabilidade[0][indices_top_3]
 
     return list(zip(redes_sociais_top_3, probabilidades_top_3))
 
-# Função para exibir as redes sociais com descrições e compatibilidade
+# Função para exibir as redes sociais com descrições
 def exibir_resultados(resultados):
     for i, (rede, probabilidade) in enumerate(resultados):
-        st.subheader(f"{i+1}. {rede}")
-        # Você pode adicionar descrições de cada rede social aqui
-        st.write(f"**Descrição**: {desc[desc['rede'].lower() == rede][desc]}.")
-        st.write(f"**Público**: {desc[desc['rede'].lower() == rede][publico]}.")
+        st.subheader(f"{i+1}. {desc[desc['rede'].lower() == rede]['rede']}")
+        # Descrições de cada rede social e público
+        st.write(f"**Descrição**: {desc[desc['rede'].lower() == rede]['desc']}.")
+        st.write(f"**Público**: {desc[desc['rede'].lower() == rede]['publico']}.")
         st.write("---")
 
 # Streamlit - Interface
@@ -108,10 +107,10 @@ if nome_empresa:
     categoria = st.selectbox("Escolha a categoria da sua empresa:", df['categoria'].unique())
     
     # Seleção de gênero
-    genero = st.selectbox("Escolha o gênero do público alvo:", ['homem', 'mulher', 'indefinido'])
+    genero = st.selectbox("Escolha o gênero do público alvo:", ['homem', 'mulher', 'não especificado'])
     
     # Seleção de localidade (nacional ou internacional)
-    localidade = st.selectbox("Escolha a localidade do público alvo:", ['nacional', 'internacional', 'indefinido'])
+    localidade = st.selectbox("Escolha a localidade do público alvo:", ['nacional', 'internacional', 'não especificado'])
     
     # Faixa etária
     faixa_etaria_min = st.number_input("Idade mínima do público:", min_value=0, max_value=100, value=18)
