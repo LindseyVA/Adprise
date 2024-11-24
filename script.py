@@ -110,6 +110,7 @@ def exibir_resultados(resultados):
 
 # Streamlit - Interface
 
+st.text("ADPrize")
 st.title("Previsão de Rede Social Ideal para a sua Empresa")
 st.text("Impulsionamos seu negócio com comunicação estratégica!")
 
