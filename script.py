@@ -1,4 +1,4 @@
-import streamlit as st
+rimport streamlit as st
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -11,7 +11,7 @@ from sklearn.pipeline import Pipeline
 st.markdown("""
     <style>
         .reportview-container {
-            background: linear-gradient(to bottom, #D6DEE2, #0077EA);  /* Degradê do coral para azul */
+            background: linear-gradient(to top left, #6B3FA0, #FFFFF, #0077EA);  /* Degradê do coral para azul */
             height: 100%;
         }
     </style>
@@ -108,7 +108,7 @@ def exibir_resultados(resultados):
 
 # Streamlit - Interface
 
-st.text("ADPrize")
+st.header("ADPrize")
 st.title("Previsão de Rede Social Ideal para a sua Empresa")
 st.text("Impulsionamos seu negócio com comunicação estratégica!")
 
@@ -120,7 +120,8 @@ if nome_empresa:
 
     # Seleção de categoria
     categoria = st.selectbox("Escolha a categoria da sua empresa:", df['categoria'].unique())
-    st.write(f"{cat[cat['nome'] == categoria]['desc'].values[0]}")
+    if categoria:
+        st.write(f"{cat[cat['nome'] == categoria]['desc'].values[0]}")
     
     
     # Seleção de gênero
