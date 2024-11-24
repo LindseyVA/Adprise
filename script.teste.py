@@ -65,7 +65,6 @@ def train_model(df):
 
 # Inicializar o Streamlit
 st.title("Previsão de Rede Social Ideal para o Público")
-add_background_image("https://via.placeholder.com/1920x1080.png")  # Substitua pela URL da sua imagem
 
 # Carregar dados e modelo
 df, desc = load_data()
