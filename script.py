@@ -11,7 +11,7 @@ from sklearn.pipeline import Pipeline
 st.markdown("""
     <style>
         .reportview-container {
-            background: linear-gradient(to bottom, #D3D3D3, #0077EA);  /* Degradê do coral para azul */
+            background: linear-gradient(to bottom, #D6DEE2, #0077EA);  /* Degradê do coral para azul */
             height: 100%;
         }
     </style>
