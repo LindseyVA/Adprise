@@ -11,19 +11,18 @@ except ModuleNotFoundError as e:
     st.error("O módulo necessário não está instalado: " + str(e))
     st.stop()
 
-# Adicionando uma imagem de fundo com CSS
-def add_background_image(image_url):
-    st.markdown(
-        f"""
-        <style>
-        .stApp {{
-            background: url({image_url});
-            background-size: cover;
-        }}
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+# Adicionando o código para definir a imagem de fundo
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background: url('https://github.com/Benjib5/Adprise/blob/main/Background.jpeg') no-repeat center center fixed;
+        background-size: cover;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Cache para carregar os dados
 @st.cache_data
