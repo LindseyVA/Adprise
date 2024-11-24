@@ -121,9 +121,7 @@ if nome_empresa:
 
     # Seleção de categoria
     categoria = st.selectbox("Escolha a categoria da sua empresa:", df['categoria'].unique())
-    if categoria:
-        st.write(f"{cat[cat['nome'] == categoria]['desc'].values[0]}")
-    
+
     
     # Seleção de gênero
     genero = st.selectbox("Escolha o gênero do público alvo:", ['homem', 'mulher', 'não especificado'])
