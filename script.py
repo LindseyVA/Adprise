@@ -122,7 +122,7 @@ if nome_empresa:
 
     # Seleção de categoria
     categoria = st.selectbox("Escolha a categoria da sua empresa:", df['categoria'].unique())
-    st.write(f"{cat[cat['nome'] == categoria]['desc'].values}!")
+    st.write(f"{cat[cat['nome'] == categoria]['desc'].values}[0]")
     
     
     # Seleção de gênero
