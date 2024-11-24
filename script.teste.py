@@ -102,7 +102,7 @@ if nome_empresa:
 
             for i, (rede, prob) in enumerate(resultados):
                 st.subheader(f"{i+1}. {rede}")
-                descricao = desc[desc['rede'].str.lower() == rede.lower()]['descricao'].values
+                desc = desc[desc['rede'].str.lower() == rede.lower()]['desc'].values
                 publico = desc[desc['rede'].str.lower() == rede.lower()]['publico'].values
                 st.write(f"**Descrição**: {descricao[0] if descricao else 'Não disponível'}.")
                 st.write(f"**Público**: {publico[0] if publico else 'Não disponível'}.")
