@@ -7,17 +7,15 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
 # Adicionando o código para definir a imagem de fundo
-st.markdown(
-    """
+# Definindo o código CSS para o fundo degradê
+st.markdown("""
     <style>
-    .stApp {
-        background: url('https://github.com/Benjib5/Adprise/blob/main/Background.jpeg') no-repeat center center fixed;
-        background-size: cover;
-    }
+        .reportview-container {
+            background: linear-gradient(to bottom, #D3D3D3, #0077EA);  /* Degradê do coral para azul */
+            height: 100%;
+        }
     </style>
-    """,
-    unsafe_allow_html=True
-)
+""", unsafe_allow_html=True)
 
 df = pd.read_csv('social_media_1.csv')
 for i in range(9):
