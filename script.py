@@ -90,8 +90,8 @@ def exibir_resultados(resultados):
     for i, (rede, probabilidade) in enumerate(resultados):
         st.subheader(f"{i+1}. {rede}")
         # Você pode adicionar descrições de cada rede social aqui
-        st.write(f"**Descrição**: {desc[desc['rede'].lower() == rede][desc]]}.")
-        st.write(f"**Público**: {desc[desc['rede'].lower() == rede][publico]]}.")
+        st.write(f"**Descrição**: {desc[desc['rede'].lower() == rede][desc]}.")
+        st.write(f"**Público**: {desc[desc['rede'].lower() == rede][publico]}.")
         st.write("---")
 
 # Streamlit - Interface
