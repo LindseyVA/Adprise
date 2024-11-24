@@ -1,4 +1,4 @@
-rimport streamlit as st
+import streamlit as st
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
@@ -6,13 +6,14 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
-# Adicionando o código para definir a imagem de fundo
-# Definindo o código CSS para o fundo degradê
 st.markdown("""
     <style>
-        .reportview-container {
-            background: linear-gradient(to top left, #6B3FA0, #FFFFF, #0077EA);  /* Degradê do coral para azul */
+        /* Garantindo que o fundo cubra toda a página */
+        .reportview-container, .main, .block-container {
+            background: linear-gradient(to top left, #6B3FA0, #FFFFF, #0077EA); /* Degradê com três cores */
             height: 100%;
+            padding: 0;  /* Remover espaços extras ao redor */
+            margin: 0;   /* Remover margens */
         }
     </style>
 """, unsafe_allow_html=True)
