@@ -6,11 +6,26 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
+# Adicionando o código para definir a imagem de fundo
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background: url('https://github.com/Benjib5/Adprise/blob/main/Background.jpeg') no-repeat center center fixed;
+        background-size: cover;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 df = pd.read_csv('social_media_1.csv')
 for i in range(9):
     df = pd.concat([df, pd.read_csv(f'social_media_{i+2}.csv')])
 
 desc = pd.read_csv('media_description.csv')
+
+cat = pd.read_csv('media_categories.csv')
 
 # Criando um pipeline com um transformer para as variáveis categóricas (OneHotEncoder)
 # Usar StandardScaler para a variável contínua 'idade'
@@ -87,15 +102,16 @@ def prever_rede_social(categoria_empresa, genero=None, localidade=None, faixa_et
 # Função para exibir as redes sociais com descrições
 def exibir_resultados(resultados):
     for i, (rede, probabilidade) in enumerate(resultados):
-        st.subheader(f"{i+1}. {desc[desc['rede'].lower() == rede]['rede']}")
+        st.subheader(f"{i+1}. {desc[desc['rede'].str.lower() == rede]['rede'].values}")
         # Descrições de cada rede social e público
-        st.write(f"**Descrição**: {desc[desc['rede'].lower() == rede]['desc']}.")
-        st.write(f"**Público**: {desc[desc['rede'].lower() == rede]['publico']}.")
+        st.write(f"**Descrição**: {desc[desc['rede'].str.lower() == rede]['desc'].values}")
+        st.write(f"**Público**: {desc[desc['rede'].str.lower() == rede]['publico'].values}")
         st.write("---")
 
 # Streamlit - Interface
 
-st.title("Previsão de Rede Social Ideal para o Público")
+st.title("Previsão de Rede Social Ideal para a sua Empresa")
+st.text("Impulsionamos seu negócio com comunicação estratégica!")
 
 # Input do nome da empresa
 nome_empresa = st.text_input("Qual o nome da sua empresa?", "")
@@ -105,6 +121,7 @@ if nome_empresa:
 
     # Seleção de categoria
     categoria = st.selectbox("Escolha a categoria da sua empresa:", df['categoria'].unique())
+    st.write(f"{cat[cat['nome'] == categoria]['desc']}!")
     
     # Seleção de gênero
     genero = st.selectbox("Escolha o gênero do público alvo:", ['homem', 'mulher', 'não especificado'])
